@@ -10,6 +10,7 @@ public class GameBehavior : MonoBehaviour
     public int bounces;
     public int scoretogetlife;
     public GameObject ball;
+    public UIBehavior UI;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,22 +20,11 @@ public class GameBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Lives <= 0)
-            {
-                gameover();
-            }
-
         //if (scoretogetlife >= 5000)
         //{
         //    scoretogetlife -= 5000;
         //    Lives++;
         //}
-
-        if (bounces >= 3)
-        {
-            bounces -= 3;
-            multiplier++;
-        }
     }
     public void addpoints(int points)
     {
@@ -52,21 +42,35 @@ public class GameBehavior : MonoBehaviour
         multiplier = 1;
     }
 
+    void resetScore()
+    {
+        Score = 0;
+    }    
+
     void gameover()
     {
-        resetmultiplyer();
+
         ball.SetActive(false);
+        UI.restartgame.gameObject.SetActive(true);
     }
 
-    void gamestart()
+    public void gamestart()
     {
+        resetmultiplyer();
+        resetScore();
         Lives = 3;
         ball.SetActive(true);
     }
 
     public void loselife(int lives)
     {
+
         Lives -= lives;
+        if (Lives <= 0)
+        {
+            gameover();
+        }
+
     }
 
 }

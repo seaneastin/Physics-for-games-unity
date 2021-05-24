@@ -22,6 +22,13 @@ public class scorebehavior : MonoBehaviour
     {
         game.addpoints(100);
         game.bounces++;
+
+        if (game.bounces >= 3)
+        {
+            game.bounces -= 3;
+            game.multiplier++;
+        }
+
     }
 
 
